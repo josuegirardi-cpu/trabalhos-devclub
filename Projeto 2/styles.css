@@ -1,0 +1,212 @@
+/* =========================
+   BASE / RESET
+========================= */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --font: "Oswald", sans-serif;
+
+  --title: #5D5D7D;
+  --text: rgba(93,93,125,.65);
+
+  /* faixa cinza do lado direito (como no figma) */
+  --right-bg: rgba(93,93,125,.16);
+
+  /* botão principal */
+  --btn-bg: #9499EA;
+  --btn-bg-hover: #7f85e6;
+
+  /* botões do menu */
+  --pill-bg: rgba(255,255,255,.65);
+  --pill-border: rgba(93,93,125,.25);
+  --pill-text: rgba(93,93,125,.85);
+  --pill-active-bg: rgba(255,255,255,.95);
+}
+
+body{
+  font-family: var(--font);
+  background: #fff;
+  color: var(--title);
+}
+
+/* =========================
+   LAYOUT (2 COLUNAS)
+   (espera um HTML com:
+   <main class="page">
+     <section class="left">...</section>
+     <section class="right">
+        <nav class="menu">...</nav>
+        <img class="hero" ...>
+     </section>
+   </main>
+========================= */
+.page{
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* =========================
+   COLUNA ESQUERDA
+========================= */
+.left{
+  padding: 180px 90px;
+}
+
+.left h1,
+.left h2{
+  font-weight: 400;
+  font-size: 70px;
+  line-height: 80px;
+  color: var(--title);
+}
+
+.left p{
+  margin-top: 15px;
+  max-width: 54ch;
+  font-size: 28px;
+  line-height: 48px;
+  color: var(--text);
+}
+
+.btn{
+  margin-top: 18px;
+  width: 269px;
+  height: 62px;
+  border: 0;
+  border-radius: 30px;
+  background: var(--btn-bg);
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(148,153,234,.35);
+  transition: transform .15s ease, filter .15s ease, background .15s ease;
+}
+
+.btn:hover{
+  background: var(--btn-bg-hover);
+  filter: brightness(1.02);
+  transform: translateY(-1px);
+}
+
+.btn:active{
+  transform: translateY(0);
+}
+
+/* =========================
+   COLUNA DIREITA (FAIXA CINZA)
+   - Menu acima da imagem
+   - Imagem no canto INFERIOR DIREITO
+========================= */
+.right{
+  position: relative; /* para posicionar a imagem absolutamente */
+  background: var(--right-bg);
+  padding: 24px 60px;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* tudo alinhado à direita */
+}
+
+/* MENU (botões "pill" personalizados) */
+.menu{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.menu a{
+  text-decoration: none;
+  font-size: 16px;
+  letter-spacing: .4px;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  background: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  color: var(--pill-text);
+
+  backdrop-filter: blur(6px);
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.menu a:hover{
+  background: var(--pill-active-bg);
+  border-color: rgba(93,93,125,.35);
+  transform: translateY(-1px);
+}
+
+.menu a:active{
+  transform: translateY(0);
+}
+
+/* IMAGEM: canto inferior direito */
+.hero{
+  position: absolute;
+  bottom: 24px;  /* mesmo valor do padding-bottom da .right */
+  right: 60px;   /* mesmo valor do padding-right da .right */
+  width: 520px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 0; /* remove margin-top:auto */
+}
+
+/* =========================
+   RESPONSIVO (CELULAR)
+========================= */
+@media (max-width: 900px){
+  .page{
+    grid-template-columns: 1fr;
+  }
+
+  .left{
+    padding: 58px 22px 24px;
+    text-align: center;
+  }
+
+  .left h1,
+  .left h2{
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .left p{
+    margin: 12px auto 0;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .btn{
+    width: 240px;
+    height: 52px;
+    font-size: 18px;
+    margin: 18px auto 0;
+    display: block;
+  }
+
+  .right{
+    padding: 18px 22px 32px;
+    min-height: auto;       /* no celular não precisa forçar altura */
+    align-items: center;    /* centraliza no mobile */
+    position: static;       /* desativa position absolute da imagem */
+  }
+
+  .menu{
+    justify-content: center;
+  }
+
+  .hero{
+    position: static;       /* para voltar ao fluxo normal */
+    margin-top: 22px;       /* espaço acima da imagem */
+    width: 320px;
+  }
+}
